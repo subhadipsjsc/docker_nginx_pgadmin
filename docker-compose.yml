@@ -1,0 +1,30 @@
+  
+version: '3.6'
+services:
+  nginx_test:
+    build: ./nginx
+    container_name: nginx_test
+    restart: always
+    ports:
+      - "80:80"
+    links:
+      - pgadmin_test
+
+  postgres_test:
+    image: postgres
+    restart: always
+    environment:
+      POSTGRES_PASSWORD: postgrespassword
+
+  pgadmin_test:
+    image: dpage/pgadmin4
+    restart: always
+    depends_on:
+    - postgres_test
+    expose:
+    - 80
+    ## you can change pgAdmin default username/password with below environment variables
+    environment:
+      PGADMIN_DEFAULT_EMAIL: pgadmin@example.com
+      PGADMIN_DEFAULT_PASSWORD: admin
+    tty: true
