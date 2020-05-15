@@ -7,6 +7,7 @@ services:
     restart: always
     ports:
       - "80:80"
+      - "3000:3000"
     links:
       - pgadmin_test
 
@@ -15,6 +16,8 @@ services:
     restart: always
     environment:
       POSTGRES_PASSWORD: postgrespassword
+    volumes:
+       - db_volume:/var/lib/postgresql/data
 
   pgadmin_test:
     image: dpage/pgadmin4
@@ -23,8 +26,15 @@ services:
     - postgres_test
     expose:
     - 80
-    ## you can change pgAdmin default username/password with below environment variables
     environment:
       PGADMIN_DEFAULT_EMAIL: pgadmin@example.com
       PGADMIN_DEFAULT_PASSWORD: admin
     tty: true
+  
+volumes:
+  db_volume:
+    # driver: local
+    # driver_opts:
+    #     o: bind
+    #     type: none
+    #     device: /db_volume
