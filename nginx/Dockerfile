@@ -2,7 +2,7 @@
 FROM nginx
 
 # copy static files from staticFiles to /var/www
-COPY ./staticFiles/ /var/www/html/
+COPY ./staticFiles/ /var/www/html/app1
 
 # Remove the default nginx.conf
 RUN rm /etc/nginx/conf.d/default.conf
